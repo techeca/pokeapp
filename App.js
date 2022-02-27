@@ -7,7 +7,6 @@ import FirstGeneration from './Home.js';
 import PokeDetail from './DetailsPkmn.js'
 
 function clickPkmn(pkmn, navigation){
-
     return(
       navigation.navigate('Details', {itemID:pkmn.numerodex, otherParams: pkmn})
       );
@@ -48,7 +47,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Pokedex' component={FirstGeneration} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
+        <Stack.Screen name='Generation I' component={FirstGeneration} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
         <Stack.Screen name='Details' component={PokeDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
       </Stack.Navigator>
       </NavigationContainer>
