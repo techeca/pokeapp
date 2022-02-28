@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View, Image, Button, Alert, TouchableHighlight, ScrollView  } from 'react-native';
 import PokeIco from './recursos/pokeico.png';
+import BackPkmn from './recursos/poketransw.png';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colorPokemon, setZero} from './utils.js';
@@ -14,8 +15,15 @@ import { colorPokemon, setZero} from './utils.js';
 
   function loadImagePkmn(urlimg){
     return(
-      <Image style={{width:200, height:200, alignSelf:'center'}}
+      <Image style={{width:250, height:250, alignSelf:'center'}}
            source={{uri:`${urlimg}`}} />
+      );
+  }
+
+  function loadBackPkmn(urlimg){
+    return(
+      <Image style={{width:250, height:250, alignSelf:'center'}}
+           source={BackPkmn} />
       );
   }
 
@@ -67,9 +75,18 @@ import { colorPokemon, setZero} from './utils.js';
                       {/*Numero de pokedex*/}
                       <Text style={{alignSelf:'flex-end', paddingRight:20, paddingTop:20, fontFamily:'Poppins-Light', color:'white'}}>{setZero(data2.id)}</Text>
                       {/*Imagen de pokemon*/}
-                      {loadImagePkmn(data['sprites']['other']['official-artwork']['front_default'])}
+                      <View style={{flexWrap:'nowrap', alignItems:'center'}}>
+
+                        <View style={{position:'absolute', marginTop:-30}}>
+                          {loadBackPkmn()}
+                        </View>
+                        <View style={{marginTop:10, marginBottom:-20}}>
+                          {loadImagePkmn(data['sprites']['other']['official-artwork']['front_default'])}
+                        </View>
+
+                      </View>
                       {/*Tarjeta de datos de pokemon*/}
-                      <View style={{margin:10 ,backgroundColor:'white', borderRadius:10, flex:1}}>
+                      <View style={{marginTop:-10 ,margin:10 ,backgroundColor:'white', borderRadius:10, flex:1}}>
 
                           {/*Tipos de pokemon*/}
                           <View style={{margin:10, flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
@@ -84,7 +101,7 @@ import { colorPokemon, setZero} from './utils.js';
                           </View>
 
                               {/*Detalles de pokemon, peso, altura, y habilidades*/}
-                              <View style={{flex:3, flexDirection:'row', alignItems:'center'}}>
+                              <View style={{marginTop:-15 ,flex:3, flexDirection:'row', alignItems:'center'}}>
                                     {/*Peso*/}
                                     <View style={{flex:1}}>
                                         <View style={{flexDirection:'column', alignItems:'center'}}>
@@ -128,6 +145,7 @@ import { colorPokemon, setZero} from './utils.js';
                           </View>
 
                                 {/*Stats*/}
+                                {/*HP*/}
                                 <View style={{marginBottom:-15, flex:1, flexDirection:'row'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>HP</Text>
@@ -135,12 +153,12 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][0]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray',height:10, marginRight:30, borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke',height:7, marginRight:30, borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name),width:`${data['stats'][0]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
+                                {/*ATK*/}
                                 <View style={{marginBottom:-15 ,flex:1, flexDirection:'row'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>ATK</Text>
@@ -148,12 +166,12 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][1]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray', height:10, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke', height:7, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name), width:`${data['stats'][1]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
+                                {/*DEF*/}
                                 <View style={{marginBottom:-15,flex:1, flexDirection:'row'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>DEF</Text>
@@ -161,12 +179,12 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][2]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray', height:10, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke', height:7, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name), width:`${data['stats'][2]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
+                                {/*SATK*/}
                                 <View style={{marginBottom:-15 ,flex:1, flexDirection:'row'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>SATK</Text>
@@ -174,12 +192,12 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][3]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray', height:10, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke', height:7, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name), width:`${data['stats'][3]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
+                                {/*SDEF*/}
                                 <View style={{marginBottom:-15 ,flex:1, flexDirection:'row'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>SDEF</Text>
@@ -187,12 +205,12 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][4]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray', height:10, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke', height:7, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name), width:`${data['stats'][4]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
+                                {/*SPD*/}
                                 <View style={{flex:1, flexDirection:'row', marginBottom:'3%'}}>
                                     <View style={{flex:2, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Poppins-Bold', color:colorPokemon(data['types'][0].type.name)}}>SPD</Text>
@@ -200,12 +218,11 @@ import { colorPokemon, setZero} from './utils.js';
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <Text style={{fontSize:16}}>{data['stats'][5]['base_stat']}</Text>
                                     </View>
-                                    <View style={{flex:4,backgroundColor:'gray', height:10, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
+                                    <View style={{flex:4,backgroundColor:'whitesmoke', height:7, marginRight:30,borderRadius:10, flexDirection:'row', justifyContent:'flex-start'}}>
                                         <View style={{backgroundColor:colorPokemon(data['types'][0].type.name), width:`${data['stats'][5]['base_stat']}%`, borderRadius:10}}>
                                         </View>
                                     </View>
                                 </View>
-
                       </View>
                 </View>
               )}
