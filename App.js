@@ -3,7 +3,8 @@ import { ActivityIndicator, FlatList, Text, View, Image, Button, Alert, Touchabl
 import PokeIco from './recursos/pokeico.png';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FirstGeneration from './Home.js';
+import Home from './Home.js';
+import PkmnList from './PkmnList.js';
 import PokeDetail from './DetailsPkmn.js'
 
 function clickPkmn(pkmn, navigation){
@@ -11,8 +12,6 @@ function clickPkmn(pkmn, navigation){
       navigation.navigate('Details', {itemID:pkmn.numerodex, otherParams: pkmn})
       );
   }
-
-const Stack = createNativeStackNavigator();
 
 export default class App extends Component {
   constructor(props) {
@@ -47,7 +46,8 @@ export default class App extends Component {
     return (
       <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Generation I' component={FirstGeneration} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
+        <Stack.Screen name='Home' component={Home} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+        <Stack.Screen name='Pkmn List' component={PkmnList} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
         <Stack.Screen name='Details' component={PokeDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
       </Stack.Navigator>
       </NavigationContainer>

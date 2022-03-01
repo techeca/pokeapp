@@ -7,7 +7,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colorPokemon, setZero} from './utils.js';
 
   function clickPkmn(pkmn, navigation){
-
     return(
       navigation.navigate('Details', {itemID:pkmn.idpokemon, otherParams: pkmn})
       );
