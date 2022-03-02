@@ -25,3 +25,17 @@ export function setZero(numberpkmn){
   if(numberpkmn > 9 && numberpkmn < 100){return `#0${numberpkmn}`;}
   if(numberpkmn > 99){return `#${numberpkmn}`;}
 }
+
+export function capitalizeFirst(word){
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+export function editDesc(strBase){
+  var newDesc = strBase.replace('\f', ' ');
+  newDesc = newDesc.replace('\f', ' ');
+  newDesc = newDesc.replace('\n', ' ');
+  newDesc = newDesc.replace('\n', ' ');
+  newDesc = newDesc.replace('\n', ' ');
+  newDesc = newDesc.replace('\n', ' ');
+    return (newDesc);
+  }

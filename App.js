@@ -1,55 +1,34 @@
 import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View, Image, Button, Alert, TouchableHighlight, ScrollView  } from 'react-native';
-import PokeIco from './recursos/pokeico.png';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Home.js';
-import PkmnList from './PkmnList.js';
-import PokeDetail from './DetailsPkmn.js'
+import Home from './views/Home';
+import Generation from './views/Generation';
+import PokeDetail from './views/DetailsPokemon';
+import Categories from './views/CategoriesItem';
+import ListItem from './views/ListItem';
 
-function clickPkmn(pkmn, navigation){
-    return(
-      navigation.navigate('Details', {itemID:pkmn.numerodex, otherParams: pkmn})
-      );
-  }
+function PokeIconHome() {
+  return (
+    <View style={{flexDirection:'row'}}>
+    <Image style={{ width: 35, height: 35, margin:5, marginLeft:0 }} source={require('./assets/pokeicow.png')}/>
+    <Text style={{alignSelf:'center', fontFamily:'Poppins-Bold', fontSize:24, color:'white', marginLeft:10}}>Home</Text>
+    </View>
+  );
+}
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: [],
-      isLoading: true
-    };
-  }
-
-  async getPkmn() {
-    try {
-      const response = await fetch('https://antimonarchical-ram.000webhostapp.com/miAPI/api.php');
-      const json = await response.json();
-      this.setState({ data: json });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  }
-
-  componentDidMount() {
-    this.getPkmn();
-  }
-
-  render() {
-    const { data, isLoading } = this.state;
+    render() {
     const Stack = createNativeStackNavigator();
-
     return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Home' component={Home} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
-        <Stack.Screen name='Pkmn List' component={PkmnList} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
-        <Stack.Screen name='Details' component={PokeDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
-      </Stack.Navigator>
+        <Stack.Navigator initialRouteName='Home' screenOptions={{headerTitleStyle:{fontFamily:'Poppins-Bold'}, headerStyle:{backgroundColor:'crimson'}, headerTintColor:'white'}}>
+          <Stack.Screen name='Home' component={Home} options={{headerTitle:(props) => <PokeIconHome {...props} />}}/>
+          <Stack.Screen name='Generation' component={Generation} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}} />
+          <Stack.Screen name='Details' component={PokeDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+          <Stack.Screen name='Categories' component={Categories} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+          <Stack.Screen name='List Items' component={ListItem} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }
