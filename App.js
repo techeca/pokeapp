@@ -7,6 +7,7 @@ import Generation from './views/Generation';
 import PokeDetail from './views/DetailsPokemon';
 import Categories from './views/CategoriesItem';
 import ListItem from './views/ListItem';
+import ListPokeball from './views/ListPokeball';
 
 function PokeIconHome() {
   return (
@@ -28,6 +29,7 @@ export default class App extends Component {
           <Stack.Screen name='Details' component={PokeDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
           <Stack.Screen name='Categories' component={Categories} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
           <Stack.Screen name='List Items' component={ListItem} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+          <Stack.Screen name='List Pokeball' component={ListPokeball} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

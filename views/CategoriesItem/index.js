@@ -2,9 +2,11 @@ import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, FlatList, Text, View, Image, Button, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import { capitalizeFirst } from '../../utils.js';
 
-function clickSubCategorie(url, navigation, nameSubCat){
+function clickSubCategorie(url, navigation, nameSubCat, nameCat){
+  //Deberia apuntar a List Items, se debe modificar y renombrar ListPokeball para que sea component re-utilizable
+  const nombreCatAct = `List Pokeball`;
   return(
-    navigation.navigate('List Items', {urlSub:url, otherParams:nameSubCat})
+    navigation.navigate(`${nombreCatAct}`, {urlSub:url, otherParams:nameSubCat})
   );
 }
 
@@ -33,25 +35,25 @@ function CategoriesItem({route, navigation}){
 
   return(
     <ScrollView>
-    <View style={{margin:10}}>
-    {isLoading ? <ActivityIndicator size='large' color='black' style={{flex:1, justifyContent:'space-around', marginTop:'60%'}}/> : (
-      <>
-      {/*Lista de categorias*/}
-        {data['categories'].map((cat) =>
-          <TouchableOpacity key={cat.name} onPress={() => clickSubCategorie(cat['url'], navigation, capitalizeFirst(cat['name']).replace('-', ' '))}>
-            <View style={{borderWidth:3, borderRadius:20,margin:10, flexDirection:'row', flexGrow:4, justifyContent:'space-around', borderColor:'lightsteelblue', backgroundColor:'aliceblue'}}>
-                <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignSelf:'center'}}>
-                  <Text style={{fontFamily:'Poppins-Bold', fontSize:20, color:'black'}}>{capitalizeFirst(cat['name']).replace('-', ' ')}</Text>
-                </View>
-                <View style={{flexDirection:'row'}}>
-                  <Image style={{width:60, height:60, margin:5, marginRight:25}} source={{uri:`https://antimonarchical-ram.000webhostapp.com/miAPI/images/${otherParams}/${cat['name'].replace('-', '')}.png`}} />
-                </View>
-            </View>
-          </TouchableOpacity>
-        )}
-    </>)
-    }
-    </View>
+      <View style={{margin:10}}>
+      {isLoading ? <ActivityIndicator size='large' color='black' style={{flex:1, justifyContent:'space-around', marginTop:'60%'}}/> : (
+        <>
+        {/*Lista de categorias*/}
+          {data['categories'].map((cat) =>
+            <TouchableOpacity key={cat.name} onPress={() => clickSubCategorie(cat['url'], navigation, capitalizeFirst(cat['name']).replace('-', ' '), `${otherParams}`)}>
+              <View style={{borderWidth:3, borderRadius:20,margin:10, flexDirection:'row', flexGrow:4, justifyContent:'space-around', borderColor:'lightsteelblue', backgroundColor:'aliceblue'}}>
+                  <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignSelf:'center'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', fontSize:20, color:'black'}}>{capitalizeFirst(cat['name']).replace('-', ' ')}</Text>
+                  </View>
+                  <View style={{flexDirection:'row'}}>
+                    <Image style={{width:60, height:60, margin:5, marginRight:25, resizeMode:'contain'}} source={{uri:`https://antimonarchical-ram.000webhostapp.com/miAPI/images/${otherParams.toLowerCase()}/${cat['name'].replace('-', '')}.png`}} />
+                  </View>
+              </View>
+            </TouchableOpacity>
+          )}
+      </>)
+      }
+      </View>
     </ScrollView>
     );
 }

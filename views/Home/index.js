@@ -1,6 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import PokeballsBtnImg from '../../assets/pokeballs.png';
+import MedicinesBtnImg from '../../assets/medicines.png';
+import MiscellaneousBtnImg from '../../assets/miscellaneous.png';
+import BeriesBtnImg from '../../assets/berries.png';
+import BattlesBtnImg from '../../assets/battles.png';
+import MovesBtnImg from '../../assets/moves.png';
 
 function clickGen(generation, navigation){
     return(
@@ -34,11 +39,11 @@ function buttonItems(catItem, navigation, imageBtn){
   return(
     <TouchableOpacity onPress={() => clickCategories(`${catItem[1]}`, navigation, `${catItem[0]}`)}>
     <View style={{borderWidth:3, borderRadius:20,margin:10, flexDirection:'row', flexGrow:4, justifyContent:'space-around', borderColor:'lightsteelblue', backgroundColor:'aliceblue'}}>
-        <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignSelf:'center'}}>
-          <Text style={{fontFamily:'Poppins-Bold', fontSize:20, color:'black'}}>{catItem[0]}</Text>
+        <View style={{flexDirection:'row', flex:1, justifyContent:'flex-start', alignSelf:'center', marginLeft:10}}>
+          <Text style={{fontFamily:'Poppins-Bold', fontSize:18, color:'black'}}>{catItem[0]}</Text>
         </View>
-        <View style={{flexDirection:'row'}}>
-          <Image style={{width:230, height:60}} source={imageBtn} />
+        <View style={{flexDirection:'row', margin:5}}>
+          <Image style={{width:220, height:60}} source={imageBtn} />
         </View>
     </View>
     </TouchableOpacity>
@@ -53,7 +58,11 @@ function HomeScreen({ navigation }){
     //constantes para botones de items | nombre categoria, id categoria segun API
     const pokeballItem = ['Pokeball', 3];
     const medicineItem = ['Medicine', 2];
-    const mtmoItem = ['MT/MO', 1]
+    const mtmoItem = ['MT/MO', 4]
+    const miscItem = ['Miscellaneous', 1]
+    const berriesItem = ['Berries', 5]
+    const battleItem = ['Battle', 7]
+    const keyItem = ['Key', 8]
 
     return(
       <ScrollView>
@@ -72,8 +81,12 @@ function HomeScreen({ navigation }){
             </View>
             {/*Botones de Items*/}
                 {buttonItems(pokeballItem, navigation, PokeballsBtnImg)}
-                {buttonItems(medicineItem, navigation)}
-                {buttonItems(mtmoItem, navigation)}
+                {buttonItems(medicineItem, navigation, MedicinesBtnImg)}
+                {buttonItems(mtmoItem, navigation, MovesBtnImg)}
+                {buttonItems(miscItem, navigation, MiscellaneousBtnImg)}
+                {buttonItems(berriesItem, navigation, BeriesBtnImg)}
+                {buttonItems(battleItem, navigation, BattlesBtnImg)}
+                {buttonItems(keyItem, navigation)}
           </View>
         </View>
       </ScrollView>
