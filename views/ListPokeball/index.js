@@ -2,6 +2,12 @@ import React, { Component, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, FlatList, Text, View, Image, Button, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import { capitalizeFirst } from '../../utils.js';
 
+function clickItem(item, navigation){
+    return(
+      navigation.navigate('DetailsI', {itemID:item.id, otherParams: item})
+      );
+    }
+
 function ListPokeball({route, navigation}){
   const {urlSub, otherParams} = route.params;
   const [isLoading, setLoading] = useState(true);
@@ -24,7 +30,7 @@ function ListPokeball({route, navigation}){
     getCategories();
     navigation.setOptions({headerTitle: `${otherParams}`, headerTransparent:false});
   }, []);
- 
+
   return(
     <ScrollView>
       <View style={{margin:10, flexWrap:'wrap', flexDirection:'row', justifyContent:'center'}}>
@@ -32,7 +38,7 @@ function ListPokeball({route, navigation}){
         <>
         {/*Lista de pokeball 2 || columnas*/}
           {data['items'].map((item) =>
-            <TouchableOpacity key={item.name}>
+            <TouchableOpacity key={item.name} onPress={() => clickItem(item , navigation)}>
               <View style={{width:150, height:120, borderWidth:3, borderRadius:20, margin:5, flexDirection:'column', flexGrow:4, justifyContent:'space-around', borderColor:'lightsteelblue', backgroundColor:'aliceblue'}}>
 
                   <View style={{flexDirection:'row', borderWidth:0, justifyContent:'center', alignSelf:'center'}}>

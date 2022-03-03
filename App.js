@@ -8,12 +8,13 @@ import PokeDetail from './views/DetailsPokemon';
 import Categories from './views/CategoriesItem';
 import ListItem from './views/ListItem';
 import ListPokeball from './views/ListPokeball';
+import ItemDetail from './views/DetailsItem';
 
 function PokeIconHome() {
   return (
     <View style={{flexDirection:'row'}}>
-    <Image style={{ width: 35, height: 35, margin:5, marginLeft:0 }} source={require('./assets/pokeicow.png')}/>
-    <Text style={{alignSelf:'center', fontFamily:'Poppins-Bold', fontSize:24, color:'white', marginLeft:10}}>Home</Text>
+      <Image style={{ width: 35, height: 35, margin:5, marginLeft:0 }} source={require('./assets/pokeicow.png')}/>
+      <Text style={{alignSelf:'center', fontFamily:'Poppins-Bold', fontSize:24, color:'white', marginLeft:10}}>Home</Text>
     </View>
   );
 }
@@ -30,6 +31,7 @@ export default class App extends Component {
           <Stack.Screen name='Categories' component={Categories} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
           <Stack.Screen name='List Items' component={ListItem} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
           <Stack.Screen name='List Pokeball' component={ListPokeball} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
+          <Stack.Screen name='DetailsI' component={ItemDetail} options={{headerTitleStyle:{fontFamily:'Poppins-Bold'}}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

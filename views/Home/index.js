@@ -59,14 +59,14 @@ function HomeScreen({ navigation }){
     const pokeballItem = ['Pokeball', 3];
     const medicineItem = ['Medicine', 2];
     const mtmoItem = ['MT/MO', 4]
-    const miscItem = ['Miscellaneous', 1]
+    const miscItem = ['Misc.', 1]
     const berriesItem = ['Berries', 5]
     const battleItem = ['Battle', 7]
     const keyItem = ['Key', 8]
 
     return(
-      <ScrollView>
-        <View style={{margin:10, marginTop:0}}>
+      <ScrollView style={{backgroundColor:'white'}}>
+        <View style={{margin:10, backgroundColor:'white'}}>
           <View>
             {/*Titulo de Generaciones pokemon*/}
             <View style={{margin:10}}>
