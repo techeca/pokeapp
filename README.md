@@ -12,8 +12,7 @@ Puedes ver:\
 
 Debe tener emulador de android studio configurado.
 
-```
-bash
+```bash
 git clone https://github.com/techeca/pokeapp.git
 npm i
 npx react-native start
