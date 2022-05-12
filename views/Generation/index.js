@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useState, shouldComponentUpdate } from 'react';
+import React, { Component, useEffect, useState, shouldComponentUpdate, useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, FlatList, Text, View, Image, Button, Alert, TouchableOpacity, TextInput, SafeAreaView   } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { colorPokemon, setZero, capitalizeFirst} from '../../utils.js';
+import { colorPokemon, setZero, capitalizeFirst, paginate, getPkmnGen} from '../../utils.js';
 import CardPokemon from './CardPokemon';
 
 function searchIcon() {
@@ -17,47 +17,75 @@ function searchIcon() {
 function PkmnList({ route, navigation }){
     const {genID} = route.params;
     const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [simpleData, setSimpleData] = useState([]);
+    const [detailData, setDetailData] = useState([]);
     const [inputText, setInputText] = useState("");
     const [search, setSearch] = useState('');
-    const [filteredDataSource, setFilteredDataSource] = useState([]);
 
     const searchFilterFunction = (text) => {
     // Validación campo en blanco
     if (text) {
+
       // Si el campo no está en blanco
       // Capitaliza la busqueda
       const capSearch = capitalizeFirst(search);
       // Filtra data y actualiza filterData
-      const newData = data.filter(pkmn => pkmn.nombre.includes(capSearch))
-      setFilteredDataSource(newData);
+      const newData = simpleData.results.filter(pkmn => pkmn.name.includes(capSearch))
+      setDetailData(newData);
       setSearch(text);
       } else {
         // Campo en blanco
         // Actualiza filterData con data
-        setFilteredDataSource(data);
+        setDetailData(simpleData);
         setSearch(text);
       }
     };
 
-    const getListPkmn = async () => {
-       try {
-        //Solicitud de pkmns ..api.php?gen=1 generacion 1 // ...api.php obtiene todos // "API" personal
-        const response = await fetch(`https://antimonarchical-ram.000webhostapp.com/miAPI/api.php?gen=${genID}`);
-        const json = await response.json();
-        setData(json);
-        setFilteredDataSource(json);
-      } catch (error) {
-        //console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
+    const getListPkmn = useCallback(() => {
+        try {
+         //Solicitud de pkmns ..api.php?gen=1 generacion 1 // ...api.php obtiene todos // "API" personal
+         return fetch(`https://pokeapi.co/api/v2/pokemon/?${getPkmnGen(genID)}`)          //${getPkmnGen(genID)}
+         .then((res) => res.json())
+         .then((res) => {
+           setSimpleData(res);
+           setDetailData(res);
+           setLoading(false);
+         })
+       } catch (error) {
+         //console.error(error);
+       } 
+ }, [])
+
+ function loadDashboard(){
+  let tempData = []
+  //console.log(simpleData.results)
+  //if(inputText !== ''){tempData = simpleData.results.filter((pkmn) => console.log(pkmn.name))}
+
+  if(tempData.length > 0){
+    return(
+
+      <FlatList numColumns='3' data={detailData.results}
+      renderItem={({item}) => (
+            <CardPokemon item={item} />
+        )}/>
+  )
+  }else {
+    //detailData.results.map((x) => console.log(x.name))
+    return(
+      <FlatList numColumns='3' data={detailData.results}
+      renderItem={({item}) => (
+            <CardPokemon item={item} />
+        )}/>
+    )
+  }
+}
 
     useEffect(() => {
       navigation.setOptions({headerTitle: 'Pokedex', headerTransparent:false});
-      getListPkmn();
-    }, []);
+      if(!simpleData.length){
+        getListPkmn()
+      }
+    }, [simpleData.length, getListPkmn]);
 
     return(
       <SafeAreaView style={{backgroundColor:'white', height:'90%'}}>
@@ -70,12 +98,9 @@ function PkmnList({ route, navigation }){
             <TextInput placeholder='Search' color='gray' onChangeText={(text) => searchFilterFunction(text)}/>
           </View>
           {/*Lista de Pokemon*/}
-          <FlatList
-            numColumns='3'
-            data={filteredDataSource}
-            renderItem={({item}) => (
-                <CardPokemon item={item} />
-            )}/>
+
+          {loadDashboard()}
+
         </>)
         }
         </View>

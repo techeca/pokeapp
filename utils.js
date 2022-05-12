@@ -1,4 +1,9 @@
 
+export function paginate(array, pageSize, pageNumber) {
+// human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+}
+
 export function colorPokemon(typepkmn){
   if(typepkmn === 'grass' || typepkmn === 'Grass'){return('#74cb48')}
   if(typepkmn === 'fire' || typepkmn === 'Fire'){return('#F57D31')}
@@ -18,6 +23,20 @@ export function colorPokemon(typepkmn){
   if(typepkmn === 'fairy' || typepkmn === 'Fairy'){return('#e69eac')}
   if(typepkmn === 'dark' || typepkmn === 'Dark'){return('#666666')}
   if(typepkmn === 'steel' || typepkmn === 'Steel'){return('#b7b9d0')}
+}
+
+export function getPkmnGen(idgen){
+  let tempLimite = ''
+  if(idgen === '1'){tempLimite = 'limit=151'}
+  if(idgen === '2'){tempLimite = 'limit=100&offset=151'}
+  if(idgen === '3'){tempLimite = 'limit=135&offset=251'}
+  if(idgen === '4'){tempLimite = 'limit=107&offset=386'}
+  if(idgen === '5'){tempLimite = 'limit=155&offset=494'}
+  if(idgen === '6'){tempLimite = 'limit=72&offset=649'}
+  if(idgen === '7'){tempLimite = 'limit=88&offset=721'}
+  if(idgen === '8'){tempLimite = 'limit=89&offset=809'}
+
+  return tempLimite
 }
 
 export function setZero(numberpkmn){

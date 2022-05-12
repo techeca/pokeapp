@@ -61,10 +61,10 @@ import { colorPokemon, setZero, capitalizeFirst} from '../../utils.js';
                           <Image style={{width:48, height:48, alignSelf:'center'}} source={{uri:`${data['sprites'].default}`}} />
                         </View>
                         {/*attributes item*/}
-                        <View style={{borderWidth:0, borderRadius:20, margin:10, marginLeft:'22%', width:150, height:'60%', marginTop:'25%'}}>
+                        <View style={{borderWidth:0, borderRadius:20, margin:10,marginLeft:'25%', width:130, height:'60%', marginTop:'25%', flexDirection:'column'}}>
                           {data['attributes'].map((attr) =>
-                            <View style={{}}>
-                            <Text key={attr.name} style={{fontFamily:'Poppins-Light', marginTop:7, backgroundColor:'white', width:120, alignSelf:'center'}}>{capitalizeFirst(attr.name.replace('-', ' ')).replace('-', ' ')}</Text>
+                            <View key={attr.name} style={{backgroundColor:'white', margin:2, marginLeft:10, borderRadius:5}}>
+                              <Text style={{borderRadius:10, fontFamily:'Poppins-Light', marginTop:3, alignSelf:'center'}}>{capitalizeFirst(attr.name.replace('-', ' ')).replace('-', ' ')}</Text>
                             </View>
                           )}
                         </View>
@@ -75,11 +75,11 @@ import { colorPokemon, setZero, capitalizeFirst} from '../../utils.js';
                           {loadImagePkmn(data['sprites']['other']['official-artwork']['front_default'])}
                         </View>*/}
                   </View>
-                  <View style={{borderWidth:2, borderColor:'lightslategrey', marginTop:'15%', height:'45%', margin:10, borderRadius:10, backgroundColor:'white'}}>
-                    <Text style={{fontFamily:'Poppins-Bold', fontSize:24, alignSelf:'center', marginTop:10}}>Description</Text>
-                    <Text style={{fontFamily:'Poppins-Light', margin:10, fontSize:16}}>{data['effect_entries'][0].effect.replace('\n', '')}</Text>
-                    <Text style={{fontFamily:'Poppins-Bold', fontSize:18, alignSelf:'flex-end', marginRight:10}}>Price</Text>
-                    <Text style={{fontFamily:'Poppins-Light', alignSelf:'flex-end', marginRight:10}}>{data['cost']}</Text>
+                  <View style={{borderWidth:0, borderColor:'lightslategrey', marginTop:'15%', height:'47%', margin:10, borderRadius:10, backgroundColor:'white'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', fontSize:24, alignSelf:'center', marginTop:15}}>Description</Text>
+                    <Text style={{fontFamily:'Poppins-Light', margin:15, fontSize:16}}>{data['effect_entries'][0].effect.replace('\n', '')}</Text>
+                    <Text style={{fontFamily:'Poppins-Bold', fontSize:18, alignSelf:'center', marginTop:10}}>Price</Text>
+                    <Text style={{fontFamily:'Poppins-Light', alignSelf:'center'}}>${data['cost']}</Text>
                   </View>
                 </View>
               )}
